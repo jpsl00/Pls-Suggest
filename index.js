@@ -9,6 +9,7 @@ client.on('ready', () => {
 
 client.on('message', m => {
   if (m.author.bot) return // Ignore bots
+  if (m.deleted) return // Ignore deleted messages???????
   if (m.channel.id === process.env.CHANNEL_ID) {
     console.log(`We've got a new suggestion!\nUser: ${m.author.tag} (${m.author.id})\nSuggestion: ${m.content}\n`)
     return m.react(process.env.UPVOTE).then(() => m.react(process.env.DOWNVOTE))
