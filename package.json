@@ -1,23 +1,51 @@
 {
-  "name": "simplesuggestionbot",
+  "name": "suggestionbot",
   "version": "0.0.0",
-  "description": "Simply a Simple Suggestion Bot",
+  "description": "Simply a suggestion bot",
   "main": "index.js",
+  "dependencies": {
+    "async-limiter": "^1.0.0",
+    "asynckit": "^0.4.0",
+    "combined-stream": "^1.0.7",
+    "delayed-stream": "^1.0.0",
+    "discord.js": "discordjs/discord.js",
+    "form-data": "^2.3.3",
+    "klasa": "dirigeants/klasa",
+    "mime-db": "^1.37.0",
+    "mime-types": "^2.1.21",
+    "mongodb": "^3.1.12",
+    "node-fetch": "^2.3.0",
+    "pako": "^1.0.7",
+    "prism-media": "^0.3.1",
+    "setimmediate": "^1.0.5",
+    "tweetnacl": "^1.0.0",
+    "ws": "^6.1.2"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0",
+    "eslint": "^5.12.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  },
   "scripts": {
-    "start": "node ."
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fixMod": "yarn add discordjs/discord.js dirigeants/klasa#master",
+    "start": "node .",
+    "start-prod": "pm2 start index.js",
+    "dev": "node -r dotenv/config ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jpsl00/Simple-Suggestion-Bot.git"
   },
+  "keywords": [],
   "author": "jpsl00",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jpsl00/Simple-Suggestion-Bot/issues"
   },
-  "homepage": "https://github.com/jpsl00/Simple-Suggestion-Bot#readme",
-  "dependencies": {
-    "discord.js": "discordjs/discord.js",
-    "dotenv": "^6.2.0"
-  }
+  "homepage": "https://github.com/jpsl00/Simple-Suggestion-Bot#readme"
 }
