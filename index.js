@@ -1,19 +1,28 @@
-const Discord = require('discord.js')
-require('dotenv').config()
+const { Client } = require('klasa')
+const { config } = require('./config')
+class SuggestionClient extends Client {
+  constructor () {
+    super(config)
 
-const client = new Discord.Client()
-
-client.on('ready', () => {
-  console.log('Bot is ready to receive suggestions!')
-})
-
-client.on('message', m => {
-  if (m.author.bot) return // Ignore bots
-  if (m.deleted) return // Ignore deleted messages???????
-  if (m.channel.id === process.env.CHANNEL_ID) {
-    console.log(`We've got a new suggestion!\nUser: ${m.author.tag} (${m.author.id})\nSuggestion: ${m.content}\n`)
-    return m.react(process.env.UPVOTE).then(() => m.react(process.env.DOWNVOTE))
+    // Add any properties to your Klasa Client
   }
-})
 
-client.login(process.env.TOKEN)
+  // Add any methods to your Klasa Client
+  setup () {
+    this.configSchemas()
+
+    this.login()
+  }
+
+  configSchemas () {
+    SuggestionClient.defaultGuildSchema
+      .add('suggestionChannel', 'textchannel')
+      .add('reactions', folder => folder
+        .add('upvote', 'emoji', { default: config.suggestion.upvote })
+        .add('downvote', 'emoji', { default: config.suggestion.downvote }))
+  }
+}
+
+const client = new SuggestionClient()
+
+client.setup()

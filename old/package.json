@@ -1,0 +1,23 @@
+{
+  "name": "simplesuggestionbot",
+  "version": "0.0.0",
+  "description": "Simply a Simple Suggestion Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpsl00/Simple-Suggestion-Bot.git"
+  },
+  "author": "jpsl00",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jpsl00/Simple-Suggestion-Bot/issues"
+  },
+  "homepage": "https://github.com/jpsl00/Simple-Suggestion-Bot#readme",
+  "dependencies": {
+    "discord.js": "discordjs/discord.js",
+    "dotenv": "^6.2.0"
+  }
+}
