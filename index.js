@@ -9,17 +9,40 @@ class SuggestionClient extends Client {
 
   // Add any methods to your Klasa Client
   setup () {
-    this.configSchemas()
+    this.configDB()
 
     this.login()
   }
 
-  configSchemas () {
+  configDB () {
     SuggestionClient.defaultGuildSchema
       .add('suggestionChannel', 'textchannel')
+      .add('suggestions', 'message', {
+        configurable: true,
+        array: true
+      })
+      /* folder => folder
+        .add('id', 'message')
+        .add('votes', subfolder => subfolder
+          .add('user', 'user')
+          .add('suggestion', 'string')
+          .add('message', 'message')
+          .add('voteStrength', 'integer')
+        )
+      , {
+        configurable: false,
+        array: true
+      }) */
       .add('reactions', folder => folder
-        .add('upvote', 'emoji', { default: config.suggestion.upvote })
-        .add('downvote', 'emoji', { default: config.suggestion.downvote }))
+        .add('upvote', 'emoji', {
+          default: config.suggestion.upvote,
+          configurable: true
+        })
+        .add('downvote', 'emoji', {
+          default: config.suggestion.upvote,
+          configurable: true
+        })
+      )
   }
 }
 

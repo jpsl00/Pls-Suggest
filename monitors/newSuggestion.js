@@ -13,11 +13,14 @@ module.exports = class extends Monitor {
   }
 
   async run (message) {
-    if (!message.guild) return
+    if (!message.guild || message.system || message.author.bot) return
     if (message.channel.id !== message.guild.settings.suggestionChannel) return
     const { upvote, downvote } = message.guild.settings.reactions
-    return message.react(upvote).then(() => message
-      .react(downvote))
+    message.guild.settings.update('suggestions', `${message.channel.id}-${message.id}`, {
+      action: 'add'
+    })
+    return message.react(upvote, downvote).catch(() => {})/* .then(() => message
+      .react(downvote)) */
 
     // This is where you place the code you want to run for your monitor
   }
