@@ -9,7 +9,7 @@ module.exports = class extends Event {
     })
   }
 
-  run (reaction, user) {
+  async run (reaction, user) {
     // This is where you place the code you want to run for your event
     const { message } = reaction
     const { channel, guild } = message
@@ -17,26 +17,28 @@ module.exports = class extends Event {
     if (channel.id !== guild.settings.suggestionChannel) return
 
     const { upvote, downvote } = guild.settings.reactions
-    const reactionCount = message.reactions
+    const count = await Promise.all(message.reactions
       .filter(reac =>
         reac._emoji.name === upvote || reac._emoji.id === upvote ||
-        reac._emoji.name === downvote || reac._emoji.id === downvote
+          reac._emoji.name === downvote || reac._emoji.id === downvote
       )
       .map(async react => {
-        const users = await react.users.fetch(user.id)
+        const users = await react.users.fetch().then(usrs =>
+          usrs.filter(usr => usr.id === user.id))
         return users
       })
-      .filter(entry => !!entry)
-      .length
+    ).then(result => result
+      .map(entry => !!entry.size)
+      .filter(entry => !!entry))
 
-    if (!reactionCount) return
+    if (!count || !count.length) return
 
     if (user.bot) {
       if (this.client.user.equals(user)) return
       return reaction.users.remove(user)
     }
 
-    if (reactionCount > 1) return reaction.users.remove(user)
+    if (count.length > 1) return reaction.users.remove(user)
   }
 
   async init () {
