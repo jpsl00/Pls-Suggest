@@ -22,7 +22,10 @@ module.exports = class extends Event {
         reac._emoji.name === upvote || reac._emoji.id === upvote ||
         reac._emoji.name === downvote || reac._emoji.id === downvote
       )
-      .map(react => react.users.find(usr => usr.id === user.id))
+      .map(async react => {
+        const users = await react.users.fetch(user.id)
+        return users
+      })
       .filter(entry => !!entry)
       .length
 
