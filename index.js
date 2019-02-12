@@ -27,7 +27,7 @@ class SuggestionClient extends Client {
           configurable: true
         })
         .add('downvote', 'emoji', {
-          default: config.suggestion.upvote,
+          default: config.suggestion.downvote,
           configurable: true
         })
       )
