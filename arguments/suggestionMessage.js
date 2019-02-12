@@ -8,9 +8,9 @@ module.exports = class extends Argument {
   }
 
   async run (arg, possible, message) {
-    if (typeof arg !== 'string') throw this.constructor.error(message.language, possible.name)
+    if (typeof arg !== 'string') return
     const [channelID, messageID] = arg.split('-', 2)
-    if (!(channelID && messageID)) throw this.constructor.error(message.language, possible.name)
+    if (!(channelID && messageID)) return
 
     const channel = this.client.serializers.get('channel').deserialize(channelID,
       { key: possible.name, type: 'textchannel' }, message.language, message.guild)

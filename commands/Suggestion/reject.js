@@ -14,12 +14,12 @@ module.exports = class extends Command {
       requiredSettings: [
         'suggestionChannel'
       ],
-      aliases: ['approve', 'accept'],
+      aliases: ['deny', 'reject', 'delete'],
       bucket: 1,
       guarded: true,
       permissionLevel: 6,
       subcommands: false,
-      description: lang => lang.get('COMMAND_SUGGESTIONS_APPROVE_DESCRIPTION'),
+      description: lang => lang.get('COMMAND_SUGGESTIONS_REJECT_DESCRIPTION'),
       usage: '<Message:suggestion>'
     })
   }
@@ -29,17 +29,17 @@ module.exports = class extends Command {
     const { suggestions } = message.guild.settings
     if (suggestions.find(el => el === suggestion.fullID)) {
       const authorEmbed = new MessageEmbed()
-        .setTitle(language.get('COMMAND_SUGGESTIONS_APPROVE_AUTHOR_TITLE'))
-        .setColor('#4cd137')
+        .setTitle(language.get('COMMAND_SUGGESTIONS_REJECT_AUTHOR_TITLE'))
+        .setColor('#e84118')
         .setThumbnail(message.guild.iconURL)
-        .setDescription(language.get('COMMAND_SUGGESTIONS_APPROVE_AUTHOR_DESCRIPTION', message.member.displayName, suggestion.splitContent(0, 512, true)))
+        .setDescription(language.get('COMMAND_SUGGESTIONS_REJECT_AUTHOR_DESCRIPTION', message.member.displayName, suggestion.splitContent(0, 512, true)))
         .setFooter(message.member.displayName, message.author.displayAvatarURL())
       await suggestion.author.send(authorEmbed)
 
       await message.guild.settings.update('suggestions', message.fullID, { action: 'remove' })
 
-      await message.sendMessage(language.get('COMMAND_SUGGESTIONS_APPROVE_REPLY', suggestion.member.displayName))
-      return suggestion.delete({ reason: language.get('COMMAND_SUGGESTIONS_APPROVE_DELETE_REASON', message.member.displayName) })
+      await message.sendMessage(language.get('COMMAND_SUGGESTIONS_REJECT_REPLY', suggestion.member.displayName))
+      return suggestion.delete({ reason: language.get('COMMAND_SUGGESTIONS_REJECT_SUGGESTION_REJECTED', message.member.displayName) })
     }
     // This is where you place the code you want to run for your command
   }
