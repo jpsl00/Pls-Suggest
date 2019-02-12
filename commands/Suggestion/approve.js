@@ -31,7 +31,7 @@ module.exports = class extends Command {
       const authorEmbed = new MessageEmbed()
         .setTitle(language.get('COMMAND_SUGGESTIONS_APPROVE_AUTHOR_TITLE'))
         .setColor('#4cd137')
-        .setThumbnail(message.guild.iconURL)
+        .setThumbnail(message.guild.iconURL())
         .setDescription(language.get('COMMAND_SUGGESTIONS_APPROVE_AUTHOR_DESCRIPTION', message.member.displayName, suggestion.splitContent(0, 512, true)))
         .setFooter(message.member.displayName, message.author.displayAvatarURL())
       await suggestion.author.send(authorEmbed)
