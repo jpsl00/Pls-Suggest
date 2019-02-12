@@ -9,8 +9,13 @@ module.exports = class extends Argument {
 
   async run (arg, possible, message) {
     if (typeof arg !== 'string') return
-    const [channelID, messageID] = arg.split('-', 2)
-    if (!(channelID && messageID)) return
+    let [channelID, messageID] = arg.split('-', 2)
+    console.log([channelID, messageID])
+    if (channelID && !messageID) {
+      messageID = await `${channelID}`
+      channelID = await message.guild.settings.suggestionChannel
+    }
+    if (!(messageID && channelID)) return
 
     const channel = this.client.serializers.get('channel').deserialize(channelID,
       { key: possible.name, type: 'textchannel' }, message.language, message.guild)
