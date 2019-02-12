@@ -10,7 +10,6 @@ module.exports = class extends Argument {
   async run (arg, possible, message) {
     if (typeof arg !== 'string') return
     let [channelID, messageID] = arg.split('-', 2)
-    console.log([channelID, messageID])
     if (channelID && !messageID) {
       messageID = await `${channelID}`
       channelID = await message.guild.settings.suggestionChannel
