@@ -1,3 +1,0 @@
-files:
-  - source: /languages/json/en-US.js
-    translation: /languages/json/%two_letters_code%.js
