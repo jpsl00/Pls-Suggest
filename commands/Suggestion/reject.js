@@ -29,6 +29,8 @@ module.exports = class extends Command {
     const { language } = message
     const { suggestions, suggestionChannel } = message.guild.settings
     if (!suggestionChannel) return
+    const channel = message.guild.channels.get(suggestionChannel)
+    if (!channel) return
     if (suggestions.pending.find(el => el === suggestion.fullID)) {
       const authorEmbed = new MessageEmbed()
         .setTitle(language.get('COMMAND_SUGGESTION_REJECT_AUTHOR_TITLE'))
@@ -39,9 +41,13 @@ module.exports = class extends Command {
         .setFooter(message.member ? message.member.displayName : message.author.username, message.author.displayAvatarURL())
       await suggestion.author.send(authorEmbed).catch(e => {})
 
-      await message.guild.settings.update('suggestions.pending', message.fullID, { action: 'remove' })
+      await message.guild.settings.update('suggestions.pending', suggestion.fullID, {
+        action: 'remove',
+        force: true
+      })
       await message.guild.settings.update('suggestions.rejected', {
-        content: suggestion.cleanContent,
+        content: suggestion.content,
+        clean: suggestion.cleanContent,
         author: suggestion.author.id,
         manager: message.author.id
       }, { action: 'add' })
@@ -53,7 +59,7 @@ module.exports = class extends Command {
         .setTitle(language.get('COMMAND_SUGGESTION_REJECT_EMBED_TITLE'))
         .setTimestamp()
         .setColor('#4cd137')
-        .setDescription(language.get('COMMAND_SUGGESTION_REJECT_AFTER_DESCRIPTION', suggestion.splitContent(0, 800), suggestion.author, message.author))
+        .setDescription(language.get('COMMAND_SUGGESTION_REJECT_AFTER_DESCRIPTION', suggestion.splitContent(0, 800, true), suggestion.author, message.author))
 
       return suggestionChannel.send(embed)
     }

@@ -19,15 +19,15 @@ class SuggestionClient extends Client {
       .add('suggestionChannel', 'textchannel')
       .add('suggestions', folder => folder
         .add('rejected', 'any', {
-          configurable: false,
+          configurable: true, // For debug
           array: true
         })
         .add('approved', 'any', {
-          configurable: false,
+          configurable: true, // For debug
           array: true
         })
         .add('pending', 'message', {
-          configurable: false,
+          configurable: true, // For debug
           array: true
         })
       , {
