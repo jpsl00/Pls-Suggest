@@ -47,7 +47,7 @@ module.exports = class extends Command {
       }, { action: 'add' })
 
       await suggestion.delete({ reason: language.get('COMMAND_SUGGESTION_APPROVE_DELETE_REASON', message.member ? message.member.displayName : message.author.username) })
-      return suggestionChannel.sendMessage(language.get('COMMAND_SUGGESTION_APPROVE_REPLY', suggestion.member.displayName)).then((m) => setTimeout((m) => {
+      return suggestionChannel.send(language.get('COMMAND_SUGGESTION_APPROVE_REPLY', suggestion.member.displayName)).then((m) => setTimeout((m) => {
         if (!m) return
         const embed = new MessageEmbed()
           .setTitle(language.get('COMMAND_SUGGESTION_APPROVE_EMBED_TITLE'))
