@@ -47,7 +47,7 @@ module.exports = class extends Command {
       }, { action: 'add' })
 
       await suggestion.delete({ reason: language.get('COMMAND_SUGGESTION_APPROVE_DELETE_REASON', message.member ? message.member.displayName : message.author.username) })
-      return suggestionChannel.send(language.get('COMMAND_SUGGESTION_APPROVE_REPLY', suggestion.member.displayName)).then((m) => setTimeout((m) => {
+      return message.channel.send(language.get('COMMAND_SUGGESTION_APPROVE_REPLY', suggestion.member.displayName)).then((m) => setTimeout((m) => {
         if (!m) return
         const embed = new MessageEmbed()
           .setTitle(language.get('COMMAND_SUGGESTION_APPROVE_EMBED_TITLE'))
@@ -55,10 +55,10 @@ module.exports = class extends Command {
           .setColor('#4cd137')
           .setDescription(language.get('COMMAND_SUGGESTION_APPROVE_AFTER_DESCRIPTION', suggestion.splitContent(0, 800), suggestion.author, message.author))
 
-        if (m.editable) {
+        if (m.editable && m.channel.id === suggestionChannel) {
           return m.edit('', embed)
         } else {
-          return m.delete().then(m.channel.send(embed))
+          return m.delete().then(suggestionChannel.send(embed))
         }
       }, 15000)
       ).catch(e => {})
