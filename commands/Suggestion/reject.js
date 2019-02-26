@@ -47,21 +47,15 @@ module.exports = class extends Command {
       }, { action: 'add' })
 
       await suggestion.delete({ reason: language.get('COMMAND_SUGGESTION_REJECT_DELETE_REASON', message.member ? message.member.displayName : message.author.username) })
-      return message.channel.send(language.get('COMMAND_SUGGESTION_REJECT_REPLY', suggestion.member.displayName)).then((m) => setTimeout((m) => {
-        if (!m) return
-        const embed = new MessageEmbed()
-          .setTitle(language.get('COMMAND_SUGGESTION_REJECT_EMBED_TITLE'))
-          .setTimestamp()
-          .setColor('#e84118')
-          .setDescription(language.get('COMMAND_SUGGESTION_REJECT_AFTER_DESCRIPTION', suggestion.splitContent(0, 800), suggestion.author, message.author))
+      await message.sendMessage(language.get('COMMAND_SUGGESTION_REJECT_REPLY', suggestion.member.displayName))
 
-        if (m.editable && m.channel.id === suggestionChannel) {
-          return m.edit('', embed)
-        } else {
-          return m.delete().then(suggestionChannel.send(embed))
-        }
-      }, 15000)
-      ).catch(e => {})
+      const embed = new MessageEmbed()
+        .setTitle(language.get('COMMAND_SUGGESTION_REJECT_EMBED_TITLE'))
+        .setTimestamp()
+        .setColor('#4cd137')
+        .setDescription(language.get('COMMAND_SUGGESTION_REJECT_AFTER_DESCRIPTION', suggestion.splitContent(0, 800), suggestion.author, message.author))
+
+      return suggestionChannel.send(embed)
     }
     // This is where you place the code you want to run for your command
   }
