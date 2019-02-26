@@ -17,9 +17,21 @@ class SuggestionClient extends Client {
   configDB () {
     SuggestionClient.defaultGuildSchema
       .add('suggestionChannel', 'textchannel')
-      .add('suggestions', 'message', {
-        configurable: false,
-        array: true
+      .add('suggestions', folder => folder
+        .add('rejected', 'any', {
+          configurable: false,
+          array: true
+        })
+        .add('approved', 'any', {
+          configurable: false,
+          array: true
+        })
+        .add('pending', 'message', {
+          configurable: false,
+          array: true
+        })
+      , {
+        configurable: true
       })
       .add('reactions', folder => folder
         .add('upvote', 'emoji', {

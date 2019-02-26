@@ -16,7 +16,7 @@ module.exports = class extends Monitor {
     if (!message.guild || message.system || message.author.bot) return
     if (message.channel.id !== message.guild.settings.suggestionChannel) return
     const { upvote, downvote } = message.guild.settings.reactions
-    message.guild.settings.update('suggestions', `${message.channel.id}-${message.id}`, {
+    message.guild.settings.update('suggestions.pending', message.fullID, {
       action: 'add'
     })
     try {

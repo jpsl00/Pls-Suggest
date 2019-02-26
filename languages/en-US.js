@@ -194,19 +194,21 @@ module.exports = class extends Language {
         `• Shard      :: ${(message.guild ? message.guild.shardID : 0) + 1} / ${this.client.options.totalShardCount}`
       ],
       COMMAND_STATS_DESCRIPTION: 'Provides some details about the bot and stats.',
-      // SUGGESTIONS
+      // SUGGESTION
       // APPROVE
-      COMMAND_SUGGESTIONS_APPROVE_DESCRIPTION: 'Approves a suggestion and DMs the author.',
-      COMMAND_SUGGESTIONS_APPROVE_AUTHOR_TITLE: 'Suggestion approved!',
-      COMMAND_SUGGESTIONS_APPROVE_AUTHOR_DESCRIPTION: (name, suggestion) => `${name} has approved your suggestion. \`\`\`js\n${suggestion}\`\`\``,
-      COMMAND_SUGGESTIONS_APPROVE_REPLY: (name) => `You've approved ${name}'s suggestion.`,
-      COMMAND_SUGGESTIONS_APPROVE_DELETE_REASON: (name) => `Suggestion was approved by ${name}`,
+      COMMAND_SUGGESTION_APPROVE_DESCRIPTION: 'Approves a suggestion and DMs the author.',
+      COMMAND_SUGGESTION_APPROVE_EMBED_TITLE: 'Suggestion approved!',
+      COMMAND_SUGGESTION_APPROVE_AUTHOR_DESCRIPTION: (name, suggestion) => `${name} has approved your suggestion. \`\`\`js\n${suggestion}\`\`\``,
+      COMMAND_SUGGESTION_APPROVE_REPLY: (name) => `You've approved ${name}'s suggestion. (After 15 seconds this message will be edited)`,
+      COMMAND_SUGGESTION_APPROVE_AFTER_DESCRIPTION: (suggestion, author, user) => `${user} has approved ${author}'s suggestion. \`\`\`js\n${suggestion}\`\`\``,
+      COMMAND_SUGGESTION_APPROVE_DELETE_REASON: (name) => `Suggestion was approved by ${name}`,
       // REJECT
-      COMMAND_SUGGESTIONS_REJECT_DESCRIPTION: 'Rejects a suggestion and DMs the author.',
-      COMMAND_SUGGESTIONS_REJECT_AUTHOR_TITLE: 'Suggestion rejected!',
-      COMMAND_SUGGESTIONS_REJECT_AUTHOR_DESCRIPTION: (name, suggestion) => `${name} has rejected your suggestion. \`\`\`js\n${suggestion}\`\`\``,
-      COMMAND_SUGGESTIONS_REJECT_REPLY: (name) => `You've rejected ${name}'s suggestion.`,
-      COMMAND_SUGGESTIONS_REJECT_DELETE_REASON: (name) => `Suggestion was rejected by ${name}`,
+      COMMAND_SUGGESTION_REJECT_DESCRIPTION: 'Rejects a suggestion and DMs the author.',
+      COMMAND_SUGGESTION_REJECT_EMBED_TITLE: 'Suggestion rejected!',
+      COMMAND_SUGGESTION_REJECT_AUTHOR_DESCRIPTION: (name, suggestion) => `${name} has rejected your suggestion. \`\`\`js\n${suggestion}\`\`\``,
+      COMMAND_SUGGESTION_REJECT_REPLY: (name) => `You've rejected ${name}'s suggestion. (After 15 seconds this message will be edited)`,
+      COMMAND_SUGGESTION_REJECT_AFTER_DESCRIPTION: (suggestion, author, user) => `${user} has rejected ${author}'s suggestion. \`\`\`js\n${suggestion}\`\`\``,
+      COMMAND_SUGGESTION_REJECT_DELETE_REASON: (name) => `Suggestion was rejected by ${name}`,
       // PROMPT
       MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.'
     }

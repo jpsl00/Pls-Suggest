@@ -8,13 +8,13 @@ module.exports = class extends Argument {
   }
 
   async run (arg, possible, message) {
-    if (typeof arg !== 'string') return
+    if (typeof arg !== 'string') throw message.language.get('RESOLVER_INVALID_MESSAGE', possible.name)
     let [channelID, messageID] = arg.split('-', 2)
     if (channelID && !messageID) {
       messageID = await `${channelID}`
       channelID = await message.guild.settings.suggestionChannel
     }
-    if (!(messageID && channelID)) return
+    if (!(messageID && channelID)) throw message.language.get('RESOLVER_INVALID_MESSAGE', possible.name)
 
     const channel = this.client.serializers.get('channel').deserialize(channelID,
       { key: possible.name, type: 'textchannel' }, message.language, message.guild)
